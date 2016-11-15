@@ -8,12 +8,12 @@ const mongoose = require('./services/database/mongoose')
 const passport = require('./services/passport/passport')
 const routes = require('./routes/routes')
 
-process.env.NODE_ENV = 'dev'
+// process.env.NODE_ENV = 'dev'
 
 //passport(server)
 server.use(cookieParser())
 server.use(session({
-  secret: 'keyboard cat',
+  secret: 'hash cat octatorpe numeral gato neko',
   resave: false,
   saveUninitialized: true
 }))

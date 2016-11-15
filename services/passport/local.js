@@ -3,7 +3,7 @@ const passport = require('passport')
 const localStrategy = require('passport-local').Strategy
 const User = require('../../models/user')
 
-const localConfig = function(server) {
+const localConfig = (server) => {
   passport.use(new localStrategy({
       usernameField: 'username',
       passwordField: 'password'
@@ -18,6 +18,9 @@ const localConfig = function(server) {
           if (!user) return done(null, false)
           //TODO: Encriptar password
           if (user.password === password) {
+            console.log('USER LOGGED: ', user)
+            // Obtiene el usuario logueado
+            res.locals.user = req.user
             return done(null, user)
           } else {
             return done(null, false)
@@ -32,4 +35,4 @@ const localConfig = function(server) {
   }))
 }
 
-modul.export = localConfig;
+module.exports = localConfig;

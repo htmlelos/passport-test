@@ -3,8 +3,9 @@
 
 const passport = require('passport')
 const local = require('./local')
-const passportConfig = function (server) {
-  console.log('--Configuración del passport--')
+// console.log('local:', local);
+const passportConfig = (server) => {
+  // console.log('--Configuración del passport--')
   server.use(passport.initialize())
   server.use(passport.session())
 
