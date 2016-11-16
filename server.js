@@ -5,7 +5,6 @@ const config = require('config')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const mongoose = require('./services/database/mongoose')
-const passport = require('./services/passport/passport')
 const routes = require('./routes/routes')
 
 // process.env.NODE_ENV = 'dev'
@@ -20,7 +19,6 @@ server.use(session({
 server.use(bodyParser.urlencoded({ extended: true }))
 server.use(bodyParser.json())
 
-passport(server)
 routes(server)
 
 server.listen(config.port, () => {
