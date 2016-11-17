@@ -5,6 +5,6 @@ const security = require('./security')
 
 module.exports = function routes(server) {
   server.use('/', common)
-  server.use('/', user)
   server.use('/', security)
+  server.use('/', user)
 }

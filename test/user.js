@@ -2,8 +2,10 @@
 // Establecemos la variable de ambiente NODE_ENV a test
 process.env.NODE_ENV = 'test'
 
+const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
 const User = require('../models/user')
+const settings = require('../settings.cfg')
   // const Role = require('../models/role')
   // Dependencias de desarrollo
 const chai = require('chai')
@@ -25,6 +27,7 @@ describe('Conjunto de pruebas de usuarios', () => {
     it('should get all the users', done => {
       chai.request(server)
         .get('/users')
+        .set('x-access-token', token)
         .end((error, response) => {
           response.should.have.status(200)
           response.body.should.be.a('array')
@@ -37,14 +40,20 @@ describe('Conjunto de pruebas de usuarios', () => {
   // POST /user - Crea un usuario
   describe('POST /user', () => {
     it('should create a new user', done => {
+
         let user = {
           username: 'admin@mail.com',
           password: 'admin',
           status: 'ACTIVO'
         }
 
+        let token = jwt.sign(user, settings.secret, {
+          expiresIn: "8h"
+        })
+
         chai.request(server)
           .post('/user')
+          .set('x-access-token', token)
           .send(user)
           .end((error, response) => {
             response.should.have.status(200)
@@ -60,8 +69,13 @@ describe('Conjunto de pruebas de usuarios', () => {
           status: 'ACTIVO'
         }
 
+        let token = jwt.sign(user, settings.secret, {
+          expiresIn: "8h"
+        })
+
         chai.request(server)
           .post('/user')
+          .set('x-access-token', token)
           .send(user)
           .end((error, response) => {
             response.should.have.status(422)
@@ -78,8 +92,13 @@ describe('Conjunto de pruebas de usuarios', () => {
           status: 'ACTIVO'
         }
 
+        let token = jwt.sign(user, settings.secret, {
+          expiresIn: "8h"
+        })
+
         chai.request(server)
           .post('/user')
+          .set('x-access-token', token)
           .send(user)
           .end((error, response) => {
             response.should.have.status(422)
@@ -96,8 +115,13 @@ describe('Conjunto de pruebas de usuarios', () => {
           password: 'admin'
         }
 
+        let token = jwt.sign(user, settings.secret, {
+          expiresIn: "8h"
+        })
+
         chai.request(server)
           .post('/user')
+          .set('x-access-token', token)
           .send(user)
           .end((error, response) => {
             response.should.have.status(422)
@@ -115,8 +139,13 @@ describe('Conjunto de pruebas de usuarios', () => {
         status: 'HABILITADO'
       }
 
+      let token = jwt.sign(user, settings.secret, {
+        expiresIn: "8h"
+      })
+
       chai.request(server)
         .post('/user')
+        .set('x-access-token', token)
         .send(user)
         .end((error, response) => {
           response.should.have.status(422)
@@ -137,8 +166,13 @@ describe('Conjunto de pruebas de usuarios', () => {
       let newUser = new User(user)
       newUser.save()
 
+      let token = jwt.sign(user, settings.secret, {
+        expiresIn: "8h"
+      })
+
       chai.request(server)
         .post('/user')
+        .set('x-access-token', token)
         .send(user)
         .end((error, response) => {
           response.should.have.status(422)
@@ -165,8 +199,13 @@ describe('Conjunto de pruebas de usuarios', () => {
           console.log('::TEST::', error)
         })
 
+      let token = jwt.sign(user, settings.secret, {
+        expiresIn: "8h"
+      })
+
       chai.request(server)
         .get('/user/' + user._id)
+        .set('x-access-token', token)
         .end((error, response) => {
           response.should.have.status(200)
           response.body.should.be.a('object')
@@ -194,8 +233,13 @@ describe('Conjunto de pruebas de usuarios', () => {
           console.log('::TEST::', error)
         })
 
+      let token = jwt.sign(user, settings.secret, {
+        expiresIn: "8h"
+      })
+
       chai.request(server)
         .get('/user/58dece08eb0548118ce31f11')
+        .set('x-access-token', token)
         .end((error, response) => {
           // console.log('RESPOSE: ', response.body)
           response.should.have.status(404)
@@ -222,8 +266,13 @@ describe('Conjunto de pruebas de usuarios', () => {
           console.log('::TEST::', error)
         })
 
+      let token = jwt.sign(user, settings.secret, {
+        expiresIn: "8h"
+      })
+
       chai.request(server)
         .put('/user/' + user._id)
+        .set('x-access-token', token)
         .send({
           username: 'guest@mail.com',
           password: 'guest',
@@ -258,8 +307,13 @@ describe('Conjunto de pruebas de usuarios', () => {
           console.log('::TEST::', error)
         })
 
+      let token = jwt.sign(user, settings.secret, {
+        expiresIn: "8h"
+      })
+
       chai.request(server)
         .put('/user/58dece08eb0548118ce31f11')
+        .set('x-access-token', token)
         .send({
           username: 'guest@mail.com',
           password: 'guest',
@@ -299,8 +353,13 @@ describe('Conjunto de pruebas de usuarios', () => {
           console.log('::TEST::', error)
         })
 
+      let token = jwt.sign(user, settings.secret, {
+        expiresIn: "8h"
+      })
+
       chai.request(server)
         .put('/user/' + user._id)
+        .set('x-access-token', token)
         .send({
           username: 'admin@mail.com',
           password: 'guest',
@@ -330,8 +389,13 @@ describe('Conjunto de pruebas de usuarios', () => {
           console.log('::TEST::', error)
         })
 
+      let token = jwt.sign(user, settings.secret, {
+        expiresIn: "8h"
+      })
+
       chai.request(server)
         .delete('/user/' + user._id)
+        .set('x-access-token', token)
         .end((error, response) => {
           response.should.have.status(200)
           response.body.should.be.a('object')
@@ -354,8 +418,13 @@ describe('Conjunto de pruebas de usuarios', () => {
           console.log('::TEST::', error)
         })
 
+      let token = jwt.sign(user, settings.secret, {
+        expiresIn: "8h"
+      })
+
       chai.request(server)
         .delete('/user/58dece08eb0548118ce31f11')
+        .set('x-access-token', token)
         .end((error, response) => {
           response.should.have.status(404)
           response.body.should.be.a('object')

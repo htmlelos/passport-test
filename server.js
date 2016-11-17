@@ -3,7 +3,6 @@ const server = express()
 const bodyParser = require('body-parser')
 const config = require('config')
 const cookieParser = require('cookie-parser')
-const session = require('express-session')
 const mongoose = require('./services/database/mongoose')
 const routes = require('./routes/routes')
 
@@ -11,11 +10,6 @@ const routes = require('./routes/routes')
 
 //passport(server)
 server.use(cookieParser())
-server.use(session({
-  secret: 'hash cat octatorpe numeral gato neko',
-  resave: false,
-  saveUninitialized: true
-}))
 server.use(bodyParser.urlencoded({ extended: true }))
 server.use(bodyParser.json())
 

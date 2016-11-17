@@ -45,8 +45,8 @@ describe('Conjunto de pruebas de usuarios', () => {
           response.body.should.be.a('object')
           response.body.should.have.property('message')
             .eql('Usuario autenticado con exito')
-          response.body.should.have.property('isAuthenticated')
-            .eql(true)
+          response.body.should.have.property('token')
+            .not.null
           done()
         })
     })
@@ -74,8 +74,7 @@ describe('Conjunto de pruebas de usuarios', () => {
           response.body.should.be.a('object')
           response.body.should.have.property('message')
             .eql('No se pudo autenticar verifique sus credenciales')
-          response.body.should.have.property('isAuthenticated')
-            .eql(false)
+          response.body.should.have.property('token').null
           done()
         })
     })
@@ -103,8 +102,7 @@ describe('Conjunto de pruebas de usuarios', () => {
           response.body.should.be.a('object')
           response.body.should.have.property('message')
             .eql('No se pudo autenticar verifique sus credenciales')
-          response.body.should.have.property('isAuthenticated')
-            .eql(false)
+          response.body.should.have.property('token').null
           done()
         })
     })
@@ -133,8 +131,7 @@ describe('Conjunto de pruebas de usuarios', () => {
           response.body.should.be.a('object')
           response.body.should.have.property('message')
             .eql('No se pudo autenticar verifique sus credenciales')
-          response.body.should.have.property('isAuthenticated')
-            .eql(false)
+          response.body.should.have.property('token').null
           done()
         })
     })
@@ -163,8 +160,7 @@ describe('Conjunto de pruebas de usuarios', () => {
           response.body.should.be.a('object')
           response.body.should.have.property('message')
             .eql('No se pudo autenticar verifique sus credenciales')
-          response.body.should.have.property('isAuthenticated')
-            .eql(false)
+          response.body.should.have.property('token').null
           done()
         })
     })

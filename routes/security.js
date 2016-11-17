@@ -2,7 +2,6 @@
 const security = require('../controllers/security')
 const router = require('express').Router()
 
-router.route('/login')
-  .post(security.login)
+router.use(security.verifyToken)
 
 module.exports = router
